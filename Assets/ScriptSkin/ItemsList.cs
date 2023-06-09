@@ -8,12 +8,12 @@ public abstract class ItemsList<TItem, TData> : MonoBehaviour where TItem : Item
     
     public int count => itemsList.Count;
     protected readonly List<TItem> itemsList = new List<TItem>();
-    public bool AddItems(List<TData> items, bool isTexture){
+    public virtual bool AddItems(TData[] items/*, bool isTexture*/){
         if (itemsList.Count != 0) Clear();
         //Debug.Log("clear");
 
         foreach (var task in items)
-            Add(task, isTexture);
+            Add(task/*, isTexture*/);
 
         return true; // return value for await until
     }
@@ -26,11 +26,11 @@ public abstract class ItemsList<TItem, TData> : MonoBehaviour where TItem : Item
         itemsList.Clear();
     }
 
-    public void Add(TData data,  bool isTexture){
+    public void Add(TData data/*,  bool isTexture*/){
         var item = Spawn(data);
         itemsList.Add(item);
         OnItemCreate(item);
-        item.SetData(data, isTexture);
+        item.SetData(data/*, isTexture*/);
     }
 
     public void Remove(TItem item){

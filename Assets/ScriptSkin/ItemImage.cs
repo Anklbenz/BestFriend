@@ -24,7 +24,7 @@ public class ItemImage : Item<ItemHair>
     //     imageSample.color = color;
     // }
 
-    public override void SetData(ItemHair data, bool isTexture) {
+    public override void SetData(ItemHair data/*, bool isTexture*/) {
         imageSample.texture = data.texture;
     }
 }

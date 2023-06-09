@@ -1,4 +1,3 @@
-
 using TMPro;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
@@ -10,11 +9,11 @@ public class Typewriter : AnimatedView
     [SerializeField] private int minDelayMilliseconds = 20, maxDelayMilliseconds = 200, pauseMilliseconds = 500;
     [SerializeField] private TMP_Text textField;
 
-    public async UniTask TypeAsNew(string message) {
+    public async UniTask PrintAsNew(string message) {
         textField.text = string.Empty;
-        await Type(message);
+        await Print(message);
     }
-    public async UniTask Type(string message) {
+    public async UniTask Print(string message) {
 
         foreach (var character in message) {
             if (character == PAUSE_CHAR) {

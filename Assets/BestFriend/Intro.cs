@@ -1,44 +1,66 @@
-using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class Intro : MonoBehaviour
-{
-   // [Header("AI Messages")]
-    [TextArea] [SerializeField]
-    private string greetings, wannaBeFriends, askName, askAge, askGender;
+public class Intro : MonoBehaviour {
+	private const string NAME_TAG = "#name";
+	private const int DELAY_BETWEEN_MESSAGES = 1000;
 
-    [SerializeField] private Typewriter typewriter;
-    [SerializeField] private PlayerInput nameField;
+	/*[TextArea(2,2)]*/ [SerializeField]
+	private string[] messages;
+	[SerializeField] private Typewriter typewriter;
+	[SerializeField] private PlayerInput nameField;
+	[SerializeField] private Calendar calendar;
+	private void Awake() {
+		nameField.gameObject.SetActive(false);
+	}
 
-    private void Awake() {
-        nameField.gameObject.SetActive( false);
-    }
+	private async void Start() {
+		await Say(messages[0]);
+		await UniTask.Delay(DELAY_BETWEEN_MESSAGES);
+		
+		await Say(messages[1]);
+		await UniTask.Delay(DELAY_BETWEEN_MESSAGES);
 
-    private async void Start() {
-        await typewriter.TypeAsNew(greetings);
-        await UniTask.Delay(2000);
-        typewriter.Close();
-      
-        await UniTask.Delay(1000);
-        
-        typewriter.Open();
-        await typewriter.TypeAsNew(wannaBeFriends);
-        await UniTask.Delay(2000);
-        typewriter.Close();
-        
-        await UniTask.Delay(1000);
-        
-        typewriter.Open();
-        await typewriter.TypeAsNew(askName);
-        
-        nameField.Open();
-        var playerName = await nameField.AwaitEnter();
-        nameField.Close();
-        typewriter.Close();
+		var playerName = await AskAndAwaitAnswer(messages[2]);
+		await UniTask.Delay(DELAY_BETWEEN_MESSAGES);
 
-        await UniTask.Delay(1000);
-        typewriter.Open();
-        await typewriter.TypeAsNew(askAge.Replace("#name",playerName ));
-        await nameField.AwaitEnter();
-    }
+		await Say(messages[3].Replace(NAME_TAG, playerName));
+		await UniTask.Delay(DELAY_BETWEEN_MESSAGES);
+		
+		await AskAndAwaitAnswer(messages[4]);
+		await UniTask.Delay(DELAY_BETWEEN_MESSAGES);
+		
+		await Say(messages[5]);
+		await UniTask.Delay(DELAY_BETWEEN_MESSAGES);
+
+		await AskAndAwaitDate(messages[6]);
+	}
+
+	private async UniTask Say(string message, int delayBeforeHide = 2000) {
+		typewriter.Open();
+		await typewriter.PrintAsNew(message);
+		await UniTask.Delay(delayBeforeHide);
+		typewriter.Close();
+	}
+
+	private async UniTask<string> AskAndAwaitAnswer(string message) {
+		typewriter.Open();
+		await typewriter.PrintAsNew(message);
+
+		nameField.Open();
+		var answer = await nameField.AwaitEnter();
+		nameField.Close();
+		typewriter.Close();
+		return answer;
+	}
+
+	private async UniTask<DateTime> AskAndAwaitDate(string message) {
+		typewriter.Open();
+		await typewriter.PrintAsNew(message);
+
+		
+
+		return DateTime.Now;
+	}
 }

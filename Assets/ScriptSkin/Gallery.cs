@@ -8,7 +8,7 @@ public class Gallery : ItemsList<ItemImage, ItemHair> {
   }
   
    public void SetContent(List<ItemHair> itemHairs,  bool isTexture) {
-    AddItems(itemHairs, isTexture);
+    AddItems(itemHairs.ToArray()/*, isTexture*/);
    }
 
    public void SetActive(bool state) {

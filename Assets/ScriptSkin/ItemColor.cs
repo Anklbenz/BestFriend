@@ -23,9 +23,9 @@ public class ItemColor : Item<Material>
         imageSample.color = color;
     }
 
-    public override void SetData(Material data,  bool isTexture)
+    public override void SetData(Material data/*,  bool isTexture*/)
     {
-        if (isTexture) SetImage(data.mainTexture);
+        if (data.mainTexture) SetImage(data.mainTexture);
         else
             SetColor(data.color);
     }

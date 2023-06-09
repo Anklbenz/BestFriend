@@ -10,7 +10,7 @@ public class GalleryColor: ItemsList<ItemColor, Material> {
     }
   
     public void SetContent(List<Material> materials, bool isTexture = true) {
-        AddItems(materials, isTexture);
+        AddItems(materials.ToArray()/*, isTexture*/);
     }
 
     public void SetActive(bool state) {
