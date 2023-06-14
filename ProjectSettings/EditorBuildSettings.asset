@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/SceneSkin.unity
     guid: 1555b7a29295d354a9be22072eb72e06
   - enabled: 1
-    path: Assets/BestFriend/Intro.unity
+    path: Assets/BestFriend/Scenes/Intro.unity
     guid: a534ae28f6567814289b11d44371f978
   m_configObjects: {}
