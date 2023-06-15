@@ -1,6 +1,6 @@
-
 using UnityEngine;
 
+[System.Serializable]
 public class SessionCache {
 	
     public string fbxFileName { get; set; }

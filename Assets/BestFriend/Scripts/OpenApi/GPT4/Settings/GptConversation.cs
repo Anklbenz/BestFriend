@@ -8,7 +8,7 @@ public class GptConversation {
 	[SerializeField] private GptConnectionSettings gptConnectionSettings;
 	private GptConversationBehaviour _gptConversationBehaviour;
 
-	private APIOpenAI _requests = new();
+	private OpenAIApi _requests = new();
 	private List<ChatApiMessage> _messagingHistory = new();
 
 	public void StartConversation(GptConversationBehaviour behaviour) {

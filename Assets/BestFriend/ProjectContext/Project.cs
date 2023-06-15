@@ -1,15 +1,16 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class Project : MonoBehaviour {
-    public APIOpenAI openApi;
-    public ScenesLoader scenesLoader;
-    public SessionCache sessionCache;
-    
-    public void Initialize(){
-        Application.targetFrameRate = 80;
-        openApi = new APIOpenAI();
-        scenesLoader.Initialize();
-        openApi.Initialize();
-        sessionCache = new SessionCache();
-    }
+	public OpenAIApi openOpenAIApi;
+	public ScenesLoader scenesLoader;
+	public FirebaseApi firebase;
+	public SessionCache sessionCache;
+
+	public async UniTask Initialize() {
+		await firebase.Initialize();
+		scenesLoader.Initialize();
+		openOpenAIApi.Initialize();
+		//  sessionCache = new SessionCache();
+	}
 }

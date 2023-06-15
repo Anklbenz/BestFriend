@@ -1,9 +1,9 @@
 using System;
 using Cysharp.Threading.Tasks;
 using SerializeDeserialize;
-
-public class APIOpenAI : Requests {
-	public static APIOpenAI instance;
+[System.Serializable]
+public class OpenAIApi : Requests {
+	public static OpenAIApi instance;
 	public GptConnectionSettings connectionSettings {
 		set => _connectionSettings = value;
 	}
