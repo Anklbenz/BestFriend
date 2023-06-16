@@ -4,7 +4,7 @@ using UnityEngine;
 public class Project : MonoBehaviour {
 	public OpenAIApi openOpenAIApi;
 	public ScenesLoader scenesLoader;
-	public FirebaseApi firebase;
+	public DatabaseApi firebase;
 	public SessionCache sessionCache;
 
 	public async UniTask Initialize() {

@@ -5,21 +5,27 @@ public class Boot : MonoBehaviour {
 
 	private async void Awake() {
 		await project.Initialize();
-
+		/*DatabaseApi.instance.SingOut();
+		return;*/
+	if(!DatabaseApi.instance.isSigned)
+		 await DatabaseApi.instance.CreateAsAnonymousAsync();
+		
 //		await FirebaseApi.instance.RegistrationWithEmailAndPassword("aabb.cc", "111");
-		if (FirebaseApi.instance.isSigned) {
-			await FirebaseApi.instance.SetUserData(new UserData() {age = "19", gender = "female", name = "Grisha1"});
-			await FirebaseApi.instance.SetAvatarData(new AvatarData() {gender = "male", name = "Dyadya Petya"});
-			await FirebaseApi.instance.SetAvatarMeshData(new AvatarMeshData() {hair = 2, head = 1, body = 3, eyes = 21, legs = 24});
-			var avatar = await FirebaseApi.instance.GetAvatarData();
-			var user = await FirebaseApi.instance.GetUserData();
-			var mesh = await FirebaseApi.instance.GetAvatarMeshData();
-			var openAi = await FirebaseApi.instance.GetAiKey();
-			var google = await FirebaseApi.instance.GetSpeechKey();
+		if (DatabaseApi.instance.isSigned) {
+			await DatabaseApi.instance.SetUserData(new UserData() {age = "1", gender = "female", name = "Grisha1"});
+			await DatabaseApi.instance.SetAvatarData(new AvatarData() {gender = "male", name = " Petya"});
+			await DatabaseApi.instance.SetAvatarMeshData(new AvatarMeshData() {hair = 2, head = 1, body = 3, eyes = 21, legs = 24});
+			var avatar = await DatabaseApi.instance.GetAvatarData();
+			var user = await DatabaseApi.instance.GetUserData();
+			var mesh = await DatabaseApi.instance.GetAvatarMeshData();
+			var openAi = await DatabaseApi.instance.GetAiKey();
+			var google = await DatabaseApi.instance.GetSpeechKey();
 		}
-		else {
-			await FirebaseApi.instance.SignInWithEmailAndPassword("aa@bb.cc", "111111");
-		}
+		
+		//	await DatabaseApi.instance.SignInWithEmailAndPasswordAsync("aa@bb.cc", "111111");
+		//await DatabaseApi.instance.Ddd();
+		//"aabb@eee.cc", "password"
+		var r=await DatabaseApi.instance.LinkAnonymousToEmailCredential("aabb@eee.cc1","password");
 //		ScenesLoader.instance.GoToIntroScene();
 		DontDestroyOnLoad(project);
 	}
